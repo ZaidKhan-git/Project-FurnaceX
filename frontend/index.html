@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a1628">
+    <meta name="description" content="FurnaceX - Petroleum Lead Intelligence Platform by HPCL">
+    
+    <title>FurnaceX | Petroleum Intelligence</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           FurnaceX Design System
+           Government-Grade Midnight Theme
+        ======================================== */
+        
+        :root {
+            /* Primary - Midnight Blue Theme */
+            --bg-primary: #0a1628;
+            --bg-secondary: #0f2140;
+            --bg-card: rgba(15, 33, 64, 0.85);
+            --bg-glass: rgba(15, 33, 64, 0.6);
+            
+            /* HPCL Brand Colors */
+            --hpcl-navy: #003366;
+            --hpcl-red: #c41e3a;
+            --accent-gold: #d4a574;
+            --accent-blue: #4a9eff;
+            
+            /* Text & UI */
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(74, 158, 255, 0.3);
+            
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%;
+            font-family: var(--font-family);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+        
+        /* ========================================
+           Landing Page Layout
+        ======================================== */
+        
+        .landing-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        /* Hero Background with Overlay */
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+        
+        .hero-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(180deg, 
+                    rgba(10, 22, 40, 0.85) 0%, 
+                    rgba(10, 22, 40, 0.7) 40%,
+                    rgba(10, 22, 40, 0.95) 100%
+                );
+            z-index: 1;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        /* Logo & Brand */
+        .brand-container {
+            margin-bottom: 3rem;
+        }
+        
+        .furnace-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+        
+        .welcome-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .brand-title {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            line-height: 1.1;
+        }
+        
+        .brand-subtitle {
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            max-width: 500px;
+        }
+        
+        /* Continue Button */
+        .continue-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 3rem;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, var(--hpcl-navy), #004488);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 
+                0 4px 20px rgba(0, 51, 102, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 30px rgba(0, 51, 102, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, #004488, #0055aa);
+        }
+        
+        .continue-btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-arrow {
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .continue-btn:hover .btn-arrow {
+            transform: translateX(4px);
+        }
+        
+        /* Footer Credits */
+        .footer {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+        
+        .footer-credit {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-credit.hpcl {
+            color: var(--text-secondary);
+        }
+        
+        .hpcl-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.25rem 0.625rem;
+            background: rgba(0, 51, 102, 0.3);
+            border-radius: 6px;
+            border: 1px solid rgba(0, 51, 102, 0.3);
+        }
+        
+        /* Subtle Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .brand-container {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .continue-btn {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-container">
+        <!-- Hero Background -->
+        <div class="hero-background">
+            <img 
+                src="https://www.reuters.com/resizer/v2/34ZR76AIJ5PLZC377LERF4DN3M.jpg?auth=5500151bba065ae535a8d06a8c72aec9fbeab758e9915583af430681d8a761f4&width=1920&quality=80" 
+                alt="Industrial petroleum facility" 
+                class="hero-image"
+                loading="eager"
+            >
+        </div>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="brand-container">
+                <!-- FurnaceX Emblem -->
+                <svg class="furnace-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="40" cy="40" r="38" stroke="url(#grad1)" stroke-width="2" fill="none"/>
+                    <path d="M40 18 L52 35 L52 55 L40 62 L28 55 L28 35 Z" fill="url(#grad2)" opacity="0.9"/>
+                    <path d="M40 28 L46 38 L46 50 L40 54 L34 50 L34 38 Z" fill="#c41e3a" opacity="0.8"/>
+                    <circle cx="40" cy="42" r="6" fill="#ff6b35" opacity="0.9"/>
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#4a9eff"/>
+                            <stop offset="100%" stop-color="#003366"/>
+                        </linearGradient>
+                        <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#0f2140"/>
+                            <stop offset="100%" stop-color="#003366"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                
+                <p class="welcome-text">Welcome to</p>
+                <h1 class="brand-title">FurnaceX</h1>
+                <p class="brand-subtitle">
+                    Real-time petroleum lead intelligence platform 
+                    for strategic business development
+                </p>
+            </div>
+            
+            <a href="/app" class="continue-btn">
+                Continue
+                <span class="btn-arrow">→</span>
+            </a>
+        </main>
+        
+        <!-- Footer Credits -->
+        <footer class="footer">
+            <div class="footer-credit hpcl">
+                <span class="hpcl-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    HPCL
+                </span>
+                Powered by Hindustan Petroleum
+            </div>
+            <div class="footer-credit">
+                Made by Team VECTÔR
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

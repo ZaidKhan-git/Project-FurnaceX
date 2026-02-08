@@ -12,8 +12,8 @@ venv\Scripts\activate  # Windows
 # Install dependencies
 pip install -r requirements.txt
 
-# Run scrapers
-python main.py scrape --source all
+# Run complete intelligence pipeline (Scrape -> Enrich -> Score -> Map)
+python run_full_pipeline.py
 
 # Start dashboard
 python main.py serve

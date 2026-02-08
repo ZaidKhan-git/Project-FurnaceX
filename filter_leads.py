@@ -59,6 +59,7 @@ class LeadFilter:
         self.proximity_scores = self._load_proximity_data()
         
     def load_all_data(self):
+<<<<<<< HEAD
         """Load all CSV files from all states"""
         print("Loading data from all states...")
         
@@ -86,6 +87,55 @@ class LeadFilter:
         
         print(f"\nTotal records loaded: {original_count}")
         print(f"Duplicates removed: {removed}")
+=======
+        """Load pre-processed leads from leads_export.csv"""
+        print("Loading pre-processed leads from leads_export.csv...")
+        
+        leads_export_path = self.base_path / 'leads_export.csv'
+        
+        if not leads_export_path.exists():
+            raise FileNotFoundError(f"leads_export.csv not found at {leads_export_path}")
+        
+        # Load the preprocessed data
+        df = pd.read_csv(leads_export_path, encoding='utf-8')
+        
+        # Map leads_export columns to expected format
+        df['Proposal No.'] = df['id']
+        df['Project Name'] = df['project_name']
+        df['Project Proponent'] = df['company_name']
+        df['Location'] = df['location']
+        df['State'] = df['state']
+        df['Proposal Status'] = df['status']
+        df['Project_Description'] = df['description']
+        
+        # Add new columns from leads_export
+        df['Company_Name'] = df['company_name']
+        df['Signal_Type'] = df['signal_type']
+        df['Source_URL'] = df['source_url']
+        df['Source_System'] = df['source']
+        
+        # Extract sector and category from existing sector field
+        df['Sector'] = df['sector'].fillna('Unknown')
+        df['Category'] = df['sector'].apply(lambda x: 'A' if 'IND' in str(x).upper() else 'B1')
+        
+        # Parse discovered_at to get date string (DD/MM/YYYY) for legacy compatibility
+        try:
+            df['Discovered_Date'] = pd.to_datetime(df['discovered_at']).dt.strftime('%d/%m/%Y')
+        except:
+            # Fallback to current date if parsing fails
+            from datetime import datetime
+            df['Discovered_Date'] = datetime.now().strftime('%d/%m/%Y')
+        
+        # Store other details in expected format (Critical: Must include 'Date of Submission' for scoring)
+        df['Other Details'] = df.apply(
+            lambda row: f"Category: {row['Category']} Sector: {row['Sector']} Source: {row['source']} Date of Submission: {row['Discovered_Date']}", 
+            axis=1
+        )
+        
+        self.combined_df = df
+        
+        print(f"\nTotal records loaded: {len(self.combined_df)}")
+>>>>>>> 33a70aae55287a0a0bf390e82acc37e62424e38c
         print(f"Unique leads: {len(self.combined_df)}\n")
         
     def extract_sector(self, other_details):
@@ -414,8 +464,20 @@ class LeadFilter:
         # Sort by Final_Score descending
         filtered = filtered.sort_values('Final_Score', ascending=False)
         
+<<<<<<< HEAD
         # Select and reorder columns for agent use (ENHANCED EXPORT)
         export_columns = [
+=======
+        # Use original ID from Proposal No. instead of sequential
+        filtered.insert(0, 'ID', filtered['Proposal No.'])
+        
+        # Select and reorder columns for agent use (ENHANCED EXPORT)
+        export_columns = [
+            'ID',                   # MODIFIED: Original Proposal No.
+            'Company_Name',         # NEW: From leads_export
+            'Signal_Type',          # NEW: From leads_export
+            'Source_URL',           # NEW: From leads_export
+>>>>>>> 33a70aae55287a0a0bf390e82acc37e62424e38c
             'Priority_Tier',
             'Final_Score',          # NEW: Hybrid score (primary)
             'High_Urgency_Flag',    # NEW: Urgency indicator
@@ -432,6 +494,7 @@ class LeadFilter:
             'Location',
             'Sector',
             'Category',
+<<<<<<< HEAD
             'Proposal Status',
             'Recommended_Products',
             'Submission_Year',
@@ -464,6 +527,49 @@ class LeadFilter:
         print("="*60)
         
         return export_df
+=======
+            'Submission_Year',
+            'Proposal Status',
+            'Project_Description',
+            'Other Details',
+            'Recommended_Products' # Keep this from original
+        ]
+        
+        # Ensure all columns exist
+        for col in export_columns:
+            if col not in filtered.columns:
+                filtered[col] = ''
+                
+        final_df = filtered[export_columns]
+        
+        # Final Deduplication (Requested by User)
+        original_len = len(final_df)
+        final_df = final_df.drop_duplicates(subset=['ID'], keep='first')
+        if len(final_df) < original_len:
+            print(f"  Removed {original_len - len(final_df)} duplicate records during filtering.")
+        
+        # Export
+        final_df.to_csv(output_path, index=False, encoding='utf-8-sig')
+        
+        print(f"EXPORT SUMMARY")
+        print("="*60)
+        print(f"Total leads exported: {len(final_df)}")
+        print(f"\nBy Priority Tier:")
+        print(final_df['Priority_Tier'].value_counts())
+        print(f"\nBy State:")
+        print(final_df['State'].value_counts())
+        print(f"\nFinal Score Distribution:")
+        print(f"  90-100: {len(final_df[final_df['Final_Score'] >= 90])}")
+        print(f"  80-89:  {len(final_df[(final_df['Final_Score'] >= 80) & (final_df['Final_Score'] < 90)])}")
+        print(f"  70-79:  {len(final_df[(final_df['Final_Score'] >= 70) & (final_df['Final_Score'] < 80)])}")
+        print(f"  60-69:  {len(final_df[(final_df['Final_Score'] >= 60) & (final_df['Final_Score'] < 70)])}")
+        print(f"  40-59:  {len(final_df[(final_df['Final_Score'] >= 40) & (final_df['Final_Score'] < 60)])}")
+        print(f"\nHigh Urgency Leads: {final_df['High_Urgency_Flag'].sum()}")
+        print(f"\nFile saved to: {output_path}")
+        print("="*60)
+        
+        return final_df
+>>>>>>> 33a70aae55287a0a0bf390e82acc37e62424e38c
 
 def main():
     """Main execution"""
@@ -472,7 +578,11 @@ def main():
     print("="*60 + "\n")
     
     # Initialize
+<<<<<<< HEAD
     base_path = Path('data/scraped_data')
+=======
+    base_path = Path(__file__).parent / 'data'
+>>>>>>> 33a70aae55287a0a0bf390e82acc37e62424e38c
     filter_tool = LeadFilter(base_path)
     
     # Load all data
