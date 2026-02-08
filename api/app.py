@@ -46,6 +46,12 @@ def clean_for_json(obj):
         if math.isnan(obj) or math.isinf(obj):
             return None
         return obj
+    elif isinstance(obj, np.integer):
+        return int(obj)
+    elif isinstance(obj, np.floating):
+        if math.isnan(obj) or math.isinf(obj):
+            return None
+        return float(obj)
     elif pd.isna(obj):
         return None
     return obj
@@ -235,10 +241,17 @@ def get_leads():
         # Build response with user-relevant columns
         leads = []
         for _, row in df.iterrows():
+            loc = row.get('Location', '')
+            state = row.get('State', '')
+            if state and state.lower() in str(loc).lower():
+                final_loc = loc
+            else:
+                final_loc = f"{loc} - {state}".strip(' -')
+
             lead = {
                 'ID': row.get('ID', ''),
                 'Company_Name': row.get('Company_Name', 'Unknown'),
-                'Location': f"{row.get('Location', '')} - {row.get('State', '')}".strip(' -'),
+                'Location': final_loc,
                 'Procurement_Clues': extract_procurement_clues(row.to_dict()),
                 'Recommended_Products': row.get('Recommended_Products', ''),
                 'Urgency': 'HIGH' if row.get('High_Urgency_Flag') else 'NORMAL',
