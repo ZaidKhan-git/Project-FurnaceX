@@ -153,11 +153,46 @@ def generate_historical_leads():
             if matches:
                 keywords_matched[category] = matches
         
+        # Determine Source and URL
+        source = "Unknown"
+        url = ""
+        
+        if template["type"] in ["Capacity Expansion", "Financial Announcement"]:
+            source = "BSE"
+            scrip_code = random.randint(500000, 599999)
+            url = f"https://www.bseindia.com/xml-data/corpfiling/AttachLive/{scrip_code}_{i}.pdf"
+            
+        elif template["type"] in ["Government Tender", "PSU Procurement"]:
+            source = "GeM"
+            bid_id = f"GEM/{datetime.now().year}/B/{random.randint(1000000, 9999999)}"
+            url = f"https://market.gem.gov.in/ra/bids/{bid_id}"
+            
+        elif template["type"] == "Environmental Clearance":
+            source = "PARIVESH"
+            proposal_id = f"IA/{location[:2].upper()}/{random.choice(['IND', 'INFRA'])}/{random.randint(10000, 99999)}/2025"
+            url = f"https://parivesh.nic.in/proposal_details.php?pid={proposal_id}"
+            
+        elif template["type"] == "Credit Rating Rationale":
+            agency = random.choice(["CRISIL", "ICRA", "CARE"])
+            source = agency
+            slug = company.lower().replace(" ", "-").replace(".", "")
+            if agency == "CRISIL":
+                url = f"https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/{slug}_{random.randint(1000,9999)}.html"
+            elif agency == "ICRA":
+                url = f"https://www.icra.in/Rationale/ShowRationaleReport/?Id={random.randint(10000, 99999)}"
+            else:
+                url = f"https://www.careratings.com/upload/CompanyFiles/PR/{slug}.pdf"
+                
+        elif template["type"] == "New Company Registration":
+            source = "MCA"
+            cin = f"U{random.randint(10000, 99999)}{location[:2].upper()}{datetime.now().year}PTC{random.randint(100000, 999999)}"
+            url = f"https://www.zaubacorp.com/company/{company.replace(' ', '-')}/{cin}"
+
         lead = {
             "company_name": company,
             "signal_type": template["type"],
-            "source": "BSE" if "Board" in desc else ("GeM" if "Procurement" in template["type"] else "PARIVESH"),
-            "source_url": f"https://example.com/signal/{i}",
+            "source": source,
+            "source_url": url,
             "description": desc,
             "keywords_matched": keywords_matched,
             "raw_data": {"description": desc, "location": location},

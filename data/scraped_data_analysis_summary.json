@@ -1,0 +1,19 @@
+{
+  "haryana_environmental_data": {
+    "total_records": 51,
+    "columns": [
+      "S. No.",
+      "Proposal No.",
+      "Clearance Details",
+      "Project Name",
+      "Location",
+      "Project Proponent",
+      "Other Details",
+      "Issuing Authority",
+      "Proposal Status",
+      "Project_Description"
+    ],
+    "quality_score": 100,
+    "lead_potential": {
+      "high_priority": 51,
+      "infrastructure": 
