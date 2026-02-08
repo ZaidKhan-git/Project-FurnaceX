@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a1628">
+    <title>Lead Details | FurnaceX</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --bg-secondary: #0f2140;
+            --bg-card: rgba(15, 33, 64, 0.85);
+
+            --hpcl-navy: #003366;
+            --hpcl-red: #c41e3a;
+            --accent-blue: #4a9eff;
+            --accent-green: #22c55e;
+            --accent-orange: #f59e0b;
+
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            min-height: 100vh;
+            font-family: var(--font-family);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1.5rem;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 0.875rem;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: auto;
+        }
+
+        .header-logo {
+            width: 24px;
+            height: 24px;
+        }
+
+        .header-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Main */
+        .main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Lead Header */
+        .lead-header {
+            margin-bottom: 2rem;
+        }
+
+        .urgency-tag {
+            display: inline-block;
+            font-size: 0.625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.25rem 0.625rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+        }
+
+        .urgency-tag.high {
+            background: rgba(196, 30, 58, 0.2);
+            color: #ff6b7a;
+        }
+
+        .urgency-tag.normal {
+            background: rgba(74, 158, 255, 0.15);
+            color: var(--accent-blue);
+        }
+
+        .company-name {
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        .lead-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .lead-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.875rem;
+            padding-bottom: 0.625rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .card-content {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Products */
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .product-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            padding: 0.5rem 0.875rem;
+            background: linear-gradient(135deg, rgba(0, 51, 102, 0.4), rgba(0, 68, 136, 0.3));
+            border: 1px solid rgba(74, 158, 255, 0.2);
+            border-radius: 20px;
+            color: var(--text-primary);
+        }
+
+        .product-tag::before {
+            content: '🛢️';
+        }
+
+        /* Clues */
+        .clue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+        .clue-item {
+            display: flex;
+            gap: 0.625rem;
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+        }
+
+        .clue-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(74, 158, 255, 0.15);
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        /* Insights */
+        .insight-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+        .insight-item {
+            display: flex;
+            gap: 0.625rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .insight-item.highlight {
+            color: var(--accent-green);
+            font-weight: 500;
+        }
+
+        /* Scores */
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .score-item {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 0.875rem;
+            text-align: center;
+        }
+
+        .score-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .score-value.primary {
+            color: var(--accent-green);
+        }
+
+        .score-label {
+            font-size: 0.625rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Officer Card */
+        .officer-card {
+            background: linear-gradient(135deg, var(--bg-secondary), rgba(0, 51, 102, 0.3));
+            border: 1px solid rgba(0, 51, 102, 0.4);
+        }
+
+        .officer-header {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .officer-avatar {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--hpcl-navy);
+            border-radius: 10px;
+            font-size: 1.25rem;
+        }
+
+        .officer-name {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .officer-role {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .officer-contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 0.625rem;
+        }
+
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+        }
+
+        .contact-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+        }
+
+        .contact-label {
+            font-size: 0.625rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .contact-value {
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+
+        .contact-value a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        .contact-value a:hover {
+            text-decoration: underline;
+        }
+
+        .officer-address {
+            margin-top: 0.875rem;
+            padding-top: 0.875rem;
+            border-top: 1px solid var(--border-subtle);
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-subtle);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error-msg {
+            color: var(--hpcl-red);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .company-name {
+                font-size: 1.375rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="/app" class="back-btn">← Back</a>
+        <div class="header-brand">
+            <svg class="header-logo" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="11" stroke="#4a9eff" stroke-width="1.5" fill="none" />
+                <circle cx="12" cy="12" r="4" fill="#c41e3a" />
+            </svg>
+            <span class="header-title">FurnaceX</span>
+        </div>
+    </header>
+
+    <main class="main" id="main">
+        <div class="loading">
+            <div class="spinner"></div>
+        </div>
+    </main>
+
+    <script>
+        const API = '/api';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const id = new URLSearchParams(window.location.search).get('id');
+            if (id) loadLead(id);
+            else showError('No lead ID provided');
+        });
+
+        async function loadLead(id) {
+            try {
+                const res = await fetch(`${API}/leads/${encodeURIComponent(id)}`);
+                if (!res.ok) throw new Error('Lead not found');
+                const lead = await res.json();
+                if (lead.error) throw new Error(lead.error);
+                render(lead);
+            } catch (e) {
+                showError(e.message);
+            }
+        }
+
+        function showError(msg) {
+            document.getElementById('main').innerHTML = `
+                <div class="error-msg">
+                    <h2>❌ ${msg}</h2>
+                    <a href="/app" class="back-btn" style="margin-top: 1rem; display: inline-flex;">← Back to Leads</a>
+                </div>
+            `;
+        }
+
+        function render(lead) {
+            const products = (lead.Recommended_Products || '').split(',').filter(p => p.trim());
+            const clues = lead.Procurement_Clues || [];
+            const insights = lead.NLP_Insights || [];
+
+            document.title = `${lead.Company_Name} | FurnaceX`;
+
+            document.getElementById('main').innerHTML = `
+                <section class="lead-header">
+                    <span class="urgency-tag ${lead.Urgency === 'HIGH' ? 'high' : 'normal'}">
+                        ${lead.Urgency} URGENCY
+                    </span>
+                    <h1 class="company-name">${lead.Company_Name || 'Unknown Company'}</h1>
+                    <div class="lead-meta">
+                        <span>📍 ${lead.Location || lead.State || 'Unknown'}</span>
+                        <span>📋 ${lead.Signal_Type || 'N/A'}</span>
+                        <span>📅 ${lead.Submission_Date || 'Unknown'}</span>
+                    </div>
+                </section>
+                
+                <div class="grid">
+                    <div class="left">
+                        <div class="card">
+                            <div class="card-title">📦 They Might Need</div>
+                            <div class="product-grid">
+                                ${products.map(p => `<span class="product-tag">${p.trim()}</span>`).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-title">🔍 Procurement Clues</div>
+                            <div class="clue-list">
+                                ${clues.map(c => `
+                                    <div class="clue-item">
+                                        <span class="clue-icon">💡</span>
+                                        <span>${c}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-title">🤖 AI Insights</div>
+                            <div class="insight-list">
+                                ${insights.map(i => `
+                                    <div class="insight-item ${i.includes('⭐') || i.includes('🔥') ? 'highlight' : ''}">
+                                        ${i}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-title">📄 Project Description</div>
+                            <div class="card-content">
+                                ${lead.Project_Description || 'No description available'}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="right">
+                        <div class="card">
+                            <div class="card-title">📊 Confidence Scores</div>
+                            <div class="score-grid">
+                                <div class="score-item">
+                                    <div class="score-value primary">${lead.Confidence_Score || 0}</div>
+                                    <div class="score-label">Overall</div>
+                                </div>
+                                <div class="score-item">
+                                    <div class="score-value">${lead.Freshness_Score || 0}%</div>
+                                    <div class="score-label">Freshness</div>
+                                </div>
+                                <div class="score-item">
+                                    <div class="score-value">${lead.Intent_Signal || 0}%</div>
+                                    <div class="score-label">Intent</div>
+                                </div>
+                                <div class="score-item">
+                                    <div class="score-value">${lead.Proximity_Score || 0}%</div>
+                                    <div class="score-label">Proximity</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card officer-card">
+                            <div class="card-title">👤 HPCL Officer</div>
+                            <div class="officer-header">
+                                <div class="officer-avatar">👤</div>
+                                <div>
+                                    <div class="officer-name">${lead.Officer_Name || 'Not Assigned'}</div>
+                                    <div class="officer-role">${lead.Officer_Role || 'Regional Manager'}</div>
+                                </div>
+                            </div>
+                            <div class="officer-contacts">
+                                <div class="contact-row">
+                                    <span class="contact-icon">📞</span>
+                                    <div>
+                                        <div class="contact-label">Phone</div>
+                                        <div class="contact-value">
+                                            <a href="tel:${lead.Officer_Phone}">${lead.Officer_Phone || 'N/A'}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="contact-row">
+                                    <span class="contact-icon">✉️</span>
+                                    <div>
+                                        <div class="contact-label">Email</div>
+                                        <div class="contact-value">
+                                            <a href="mailto:${lead.Officer_Email}">${lead.Officer_Email || 'N/A'}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            ${lead.Officer_Address ? `
+                                <div class="officer-address">
+                                    <strong>Office:</strong><br>
+                                    ${lead.Officer_Address}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+
+</html>

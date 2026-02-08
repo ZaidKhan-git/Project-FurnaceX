@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a1628">
+    <title>Lead Intelligence | FurnaceX</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #0a1628;
+            --bg-secondary: #0f2140;
+            --bg-row-hover: rgba(74, 158, 255, 0.08);
+            --bg-input: rgba(10, 22, 40, 0.8);
+
+            --hpcl-navy: #003366;
+            --hpcl-red: #c41e3a;
+            --accent-blue: #4a9eff;
+            --accent-green: #22c55e;
+            --accent-orange: #f59e0b;
+
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: var(--font-family);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            text-decoration: none;
+        }
+
+        .header-logo {
+            width: 28px;
+            height: 28px;
+        }
+
+        .header-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .header-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            padding: 0.25rem 0.5rem;
+            background: rgba(0, 51, 102, 0.3);
+            border-radius: 4px;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .control-label {
+            font-size: 0.625rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+
+        .control-select,
+        .control-input {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8125rem;
+            font-family: inherit;
+            color: var(--text-primary);
+            background: var(--bg-input);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            outline: none;
+            min-width: 140px;
+        }
+
+        .control-select {
+            appearance: none;
+            background: var(--bg-input) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%2394a3b8' d='M1 3l4 4 4-4'/%3E%3C/svg%3E") no-repeat right 0.5rem center;
+            padding-right: 2rem;
+            cursor: pointer;
+        }
+
+        .control-select:focus,
+        .control-input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .generate-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, var(--hpcl-navy), #004488);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 51, 102, 0.4);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .stats {
+            margin-left: auto;
+            display: flex;
+            gap: 1.25rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-label {
+            font-size: 0.625rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .leads-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leads-table th {
+            position: sticky;
+            top: 52px;
+            z-index: 40;
+            padding: 0.75rem 1rem;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .leads-table td {
+            padding: 1rem;
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--border-subtle);
+            vertical-align: top;
+        }
+
+        .leads-table tr {
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .leads-table tbody tr:hover {
+            background: var(--bg-row-hover);
+        }
+
+        .cell-company {
+            font-weight: 600;
+            color: var(--text-primary);
+            max-width: 200px;
+        }
+
+        .cell-location {
+            color: var(--text-secondary);
+            max-width: 150px;
+        }
+
+        .cell-clues {
+            max-width: 220px;
+        }
+
+        .clue-tag {
+            display: inline-block;
+            font-size: 0.6875rem;
+            padding: 0.25rem 0.5rem;
+            margin: 0.125rem;
+            background: rgba(74, 158, 255, 0.1);
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+
+        .cell-products {
+            color: var(--text-secondary);
+            max-width: 180px;
+        }
+
+        .product-tag {
+            display: inline-block;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            padding: 0.25rem 0.5rem;
+            margin: 0.125rem;
+            background: rgba(0, 51, 102, 0.3);
+            border-radius: 12px;
+            color: var(--text-primary);
+        }
+
+        .cell-urgency {
+            text-align: center;
+        }
+
+        .urgency-badge {
+            display: inline-block;
+            font-size: 0.625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .urgency-badge.high {
+            background: rgba(196, 30, 58, 0.2);
+            color: #ff6b7a;
+        }
+
+        .urgency-badge.normal {
+            background: rgba(74, 158, 255, 0.1);
+            color: var(--accent-blue);
+        }
+
+        .cell-score {
+            text-align: center;
+        }
+
+        .score-value {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .score-bar {
+            width: 60px;
+            height: 4px;
+            margin: 0.375rem auto 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .score-fill {
+            height: 100%;
+            border-radius: 2px;
+        }
+
+        .score-fill.high {
+            background: var(--accent-green);
+        }
+
+        .score-fill.medium {
+            background: var(--accent-blue);
+        }
+
+        .score-fill.low {
+            background: var(--accent-orange);
+        }
+
+        /* Load More */
+        .load-more {
+            display: flex;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .load-more-btn {
+            padding: 0.625rem 1.5rem;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .load-more-btn:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        /* Empty State */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .empty-state h3 {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+
+            .leads-table th:nth-child(3),
+            .leads-table td:nth-child(3) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .stats {
+                display: none;
+            }
+
+            .leads-table th:nth-child(4),
+            .leads-table td:nth-child(4) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="/" class="header-brand">
+            <svg class="header-logo" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="13" stroke="#4a9eff" stroke-width="1.5" fill="none" />
+                <path d="M14 6 L20 12 L20 20 L14 24 L8 20 L8 12 Z" fill="#0f2140" stroke="#003366" />
+                <circle cx="14" cy="14" r="3" fill="#c41e3a" />
+            </svg>
+            <span class="header-title">FurnaceX</span>
+        </a>
+        <span class="header-subtitle">Lead Intelligence</span>
+    </header>
+
+    <section class="controls">
+        <div class="control-group">
+            <label class="control-label">Age</label>
+            <select class="control-select" id="ageFilter" onchange="applyFilters()">
+                <option value="">All Time</option>
+                <option value="3m">Last 3 Months</option>
+                <option value="6m">Last 6 Months</option>
+                <option value="1y">Last 1 Year</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Priority</label>
+            <select class="control-select" id="tierFilter" onchange="applyFilters()">
+                <option value="all">All Tiers</option>
+                <option value="tier1">Tier 1 - Immediate</option>
+                <option value="tier2">Tier 2 - High Priority</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Product</label>
+            <select class="control-select" id="productFilter" onchange="applyFilters()">
+                <option value="">Any Product</option>
+            </select>
+        </div>
+        <button class="generate-btn" id="generateBtn" onclick="runPipeline()">
+            🔄 Generate
+        </button>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-value" id="totalStat">-</div>
+                <div class="stat-label">Total</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="tier1Stat">-</div>
+                <div class="stat-label">Tier 1</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="freshStat">-</div>
+                <div class="stat-label">3 Months</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="table-container">
+        <table class="leads-table">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Location</th>
+                    <th>Procurement Clues</th>
+                    <th>Recommended Products</th>
+                    <th>Urgency</th>
+                    <th>Confidence</th>
+                </tr>
+            </thead>
+            <tbody id="leadsBody">
+                <tr>
+                    <td colspan="6" class="empty-state">
+                        <h3>Loading leads...</h3>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="load-more" id="loadMore" style="display: none;">
+        <button class="load-more-btn" onclick="loadMore()">Load More</button>
+    </div>
+
+    <script>
+        const API = '/api';
+        let leads = [];
+        let offset = 0;
+        let hasMore = false;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
+            loadStats();
+            applyFilters();
+        });
+
+        async function loadProducts() {
+            try {
+                const res = await fetch(`${API}/products`);
+                const data = await res.json();
+                const select = document.getElementById('productFilter');
+                select.innerHTML = '<option value="">Any Product</option>';
+                (data.products || []).forEach(p => {
+                    select.innerHTML += `<option value="${p}">${p}</option>`;
+                });
+            } catch (e) { console.error(e); }
+        }
+
+        async function loadStats() {
+            try {
+                const res = await fetch(`${API}/stats`);
+                const stats = await res.json();
+                document.getElementById('totalStat').textContent = stats.total_leads || '-';
+                document.getElementById('tier1Stat').textContent = stats.tier1_count || '-';
+                document.getElementById('freshStat').textContent = stats.leads_3m || '-';
+            } catch (e) { console.error(e); }
+        }
+
+        async function runPipeline() {
+            const btn = document.getElementById('generateBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Running...';
+
+            try {
+                await fetch(`${API}/pipeline/run`, { method: 'POST' });
+
+                // Poll for completion
+                let attempts = 0;
+                const check = async () => {
+                    const res = await fetch(`${API}/status`);
+                    const status = await res.json();
+                    if (!status.running) {
+                        btn.disabled = false;
+                        btn.textContent = '🔄 Generate';
+                        applyFilters();
+                        loadStats();
+                        loadProducts();
+                        return;
+                    }
+                    if (++attempts < 60) setTimeout(check, 3000);
+                };
+                setTimeout(check, 2000);
+            } catch (e) {
+                btn.disabled = false;
+                btn.textContent = '🔄 Generate';
+            }
+        }
+
+        async function applyFilters() {
+            offset = 0;
+            leads = [];
+            await fetchLeads();
+        }
+
+        async function fetchLeads() {
+            const age = document.getElementById('ageFilter').value;
+            const tier = document.getElementById('tierFilter').value;
+            const product = document.getElementById('productFilter').value;
+
+            let url = `${API}/leads?limit=30&offset=${offset}`;
+            if (age) url += `&age=${age}`;
+            if (tier && tier !== 'all') url += `&filter=${tier}`;
+            if (product) url += `&product=${encodeURIComponent(product)}`;
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+
+                if (offset === 0) {
+                    leads = data.leads || [];
+                } else {
+                    leads = [...leads, ...(data.leads || [])];
+                }
+                hasMore = data.has_more;
+                renderTable();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function loadMore() {
+            offset += 30;
+            fetchLeads();
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('leadsBody');
+            const loadMoreDiv = document.getElementById('loadMore');
+
+            if (!leads.length) {
+                tbody.innerHTML = `
+                    <tr><td colspan="6">
+                        <div class="empty-state">
+                            <h3>No leads found</h3>
+                            <p>Try adjusting your filters or click Generate</p>
+                        </div>
+                    </td></tr>
+                `;
+                loadMoreDiv.style.display = 'none';
+                return;
+            }
+
+            tbody.innerHTML = leads.map(lead => {
+                const score = lead.Confidence_Score || 0;
+                const scoreClass = score >= 80 ? 'high' : score >= 60 ? 'medium' : 'low';
+                const clues = (lead.Procurement_Clues || []).slice(0, 2);
+                const products = (lead.Recommended_Products || '').split(',').slice(0, 3);
+
+                return `
+                    <tr onclick="window.location.href='/lead?id=${encodeURIComponent(lead.ID)}'">
+                        <td class="cell-company">${lead.Company_Name || 'Unknown'}</td>
+                        <td class="cell-location">${lead.Location || lead.State || '-'}</td>
+                        <td class="cell-clues">
+                            ${clues.map(c => `<span class="clue-tag">${c}</span>`).join('')}
+                        </td>
+                        <td class="cell-products">
+                            ${products.map(p => `<span class="product-tag">${p.trim()}</span>`).join('')}
+                        </td>
+                        <td class="cell-urgency">
+                            <span class="urgency-badge ${lead.Urgency === 'HIGH' ? 'high' : 'normal'}">
+                                ${lead.Urgency}
+                            </span>
+                        </td>
+                        <td class="cell-score">
+                            <div class="score-value">${score}</div>
+                            <div class="score-bar">
+                                <div class="score-fill ${scoreClass}" style="width: ${Math.min(score, 100)}%"></div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            loadMoreDiv.style.display = hasMore ? 'flex' : 'none';
+        }
+    </script>
+</body>
+
+</html>
