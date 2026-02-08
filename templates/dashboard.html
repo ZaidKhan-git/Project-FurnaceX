@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petroleum Intel | B2B Sales Intelligence</title>
+    <meta name="description" content="AI-powered B2B sales intelligence for petroleum products. Track environmental clearances, tenders, and expansion signals.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <span class="logo-icon">🛢️</span>
+            <span class="logo-text">Petroleum Intel</span>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-secondary" onclick="exportLeads()">
+                <span class="btn-icon">📥</span> Export CSV
+            </button>
+            <button class="btn btn-primary" onclick="runScrapers()">
+                <span class="btn-icon">🔄</span> Refresh Data
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Stats Cards -->
+        <section class="stats-grid">
+            <div class="stat-card glass-card">
+                <div class="stat-icon stat-icon-total">📊</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="stat-total">-</div>
+                    <div class="stat-label">Total Leads</div>
+                </div>
+            </div>
+            <div class="stat-card glass-card">
+                <div class="stat-icon stat-icon-hot">🔥</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="stat-hot">-</div>
+                    <div class="stat-label">Hot Leads (70+)</div>
+                </div>
+            </div>
+            <div class="stat-card glass-card">
+                <div class="stat-icon stat-icon-recent">⚡</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="stat-recent">-</div>
+                    <div class="stat-label">Last 24h</div>
+                </div>
+            </div>
+            <div class="stat-card glass-card">
+                <div class="stat-icon stat-icon-sources">🌐</div>
+                <div class="stat-content">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Data Sources</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters -->
+        <section class="filters-section glass-card">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label">Product</label>
+                    <select class="filter-select" id="filter-product" onchange="applyFilters()">
+                        <option value="">All Products</option>
+                        <option value="Bitumen">Bitumen</option>
+                        <option value="Furnace Oil">Furnace Oil</option>
+                        <option value="HSD">HSD (Diesel)</option>
+                        <option value="LDO">LDO</option>
+                        <option value="LSHS">LSHS</option>
+                        <option value="Solvents">Solvents</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Signal Type</label>
+                    <select class="filter-select" id="filter-signal" onchange="applyFilters()">
+                        <option value="">All Signals</option>
+                        <option value="Environmental Clearance">Environmental Clearance</option>
+                        <option value="Government Tender">Government Tender</option>
+                        <option value="Capacity Expansion">Capacity Expansion</option>
+                        <option value="PSU Procurement">PSU Procurement</option>
+                        <option value="Road Project">Road Project</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Min Score</label>
+                    <input type="range" class="filter-range" id="filter-score" min="0" max="100" value="0" onchange="updateScoreLabel(); applyFilters()">
+                    <span class="filter-range-label" id="score-label">0</span>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Status</label>
+                    <select class="filter-select" id="filter-status" onchange="applyFilters()">
+                        <option value="">All Statuses</option>
+                        <option value="NEW">New</option>
+                        <option value="CONTACTED">Contacted</option>
+                        <option value="QUALIFIED">Qualified</option>
+                        <option value="CONVERTED">Converted</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leads Grid -->
+        <section class="leads-section">
+            <div class="leads-header">
+                <h2 class="section-title">Intelligence Feed</h2>
+                <div class="leads-count" id="leads-count">Loading...</div>
+            </div>
+            <div class="leads-grid" id="leads-grid">
+                <!-- Leads will be populated dynamically -->
+                <div class="leads-loading">
+                    <div class="spinner"></div>
+                    <p>Loading leads...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lead Detail Modal -->
+    <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+        <div class="modal glass-card" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-content" id="modal-content">
+                <!-- Modal content populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

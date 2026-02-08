@@ -1,0 +1,34 @@
+# Petroleum Intel - Dependencies
+
+# Core
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=5.1.0
+
+# Selenium for dynamic sites (PARIVESH)
+selenium>=4.15.0
+webdriver-manager>=4.0.0
+
+# RSS/XML parsing
+feedparser>=6.0.0
+
+# Database
+sqlite3  # Built-in
+
+# Web Framework
+flask>=3.0.0
+flask-cors>=4.0.0
+
+# Utilities
+python-dateutil>=2.8.0
+schedule>=1.2.0
+click>=8.1.0
+rich>=13.0.0  # Pretty CLI output
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+responses>=0.24.0  # Mock HTTP
+
+# Development
+python-dotenv>=1.0.0
