@@ -13,7 +13,7 @@ webdriver-manager>=4.0.0
 feedparser>=6.0.0
 
 # Database
-sqlite3  # Built-in
+# sqlite3  # Built-in
 
 # Web Framework
 flask>=3.0.0

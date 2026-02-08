@@ -488,18 +488,18 @@ class LeadFilter:
         print(f"\nBy Priority Tier:")
         print(final_df['Priority_Tier'].value_counts())
         print(f"\nBy State:")
-        print(export_df['State'].value_counts())
+        print(final_df['State'].value_counts())
         print(f"\nFinal Score Distribution:")
-        print(f"  90-100: {len(export_df[export_df['Final_Score'] >= 90])}")
-        print(f"  80-89:  {len(export_df[(export_df['Final_Score'] >= 80) & (export_df['Final_Score'] < 90)])}")
-        print(f"  70-79:  {len(export_df[(export_df['Final_Score'] >= 70) & (export_df['Final_Score'] < 80)])}")
-        print(f"  60-69:  {len(export_df[(export_df['Final_Score'] >= 60) & (export_df['Final_Score'] < 70)])}")
-        print(f"  40-59:  {len(export_df[(export_df['Final_Score'] >= 40) & (export_df['Final_Score'] < 60)])}")
-        print(f"\nHigh Urgency Leads: {export_df['High_Urgency_Flag'].sum()}")
+        print(f"  90-100: {len(final_df[final_df['Final_Score'] >= 90])}")
+        print(f"  80-89:  {len(final_df[(final_df['Final_Score'] >= 80) & (final_df['Final_Score'] < 90)])}")
+        print(f"  70-79:  {len(final_df[(final_df['Final_Score'] >= 70) & (final_df['Final_Score'] < 80)])}")
+        print(f"  60-69:  {len(final_df[(final_df['Final_Score'] >= 60) & (final_df['Final_Score'] < 70)])}")
+        print(f"  40-59:  {len(final_df[(final_df['Final_Score'] >= 40) & (final_df['Final_Score'] < 60)])}")
+        print(f"\nHigh Urgency Leads: {final_df['High_Urgency_Flag'].sum()}")
         print(f"\nFile saved to: {output_path}")
         print("="*60)
         
-        return export_df
+        return final_df
 
 def main():
     """Main execution"""
