@@ -1,0 +1,220 @@
+{
+    "depots": [
+        {
+            "location": "Mumbai",
+            "state": "Maharashtra",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "mum.retrm@hpcl.in",
+            "phone": "022-26403955",
+            "address": "3/4, Jn. of S.V. Rd and Turner Rd Bandra (West) Mumbai, Maharashtra - 400050"
+        },
+        {
+            "location": "Pune",
+            "state": "Maharashtra",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "pune.retrm@hpcl.in",
+            "phone": "020-26213000",
+            "address": "P.B.No. 90, 3 C, Dr. Ambedkar Road, Camp, Pune, Maharashtra - 411001"
+        },
+        {
+            "location": "Nagpur",
+            "state": "Maharashtra",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "nagp.retrm@hpcl.in",
+            "phone": "0712-2527808",
+            "address": "Post Box No. 8, 2nd Floor, Oriental Building, S.V. Patel Marg, Nagpur, Maharashtra - 440001"
+        },
+        {
+            "location": "Aurangabad",
+            "state": "Maharashtra",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "aura.retrm@hpcl.in",
+            "phone": "0240-2484926",
+            "address": "Plot No. 39, Sector-G, Town Centre, CIDCO, Aurangabad, Maharashtra - 431003"
+        },
+        {
+            "location": "Nashik",
+            "state": "Maharashtra",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "nsik.retrm@hpcl.in",
+            "phone": "0253-2363121",
+            "address": "1st Floor, BSNL CTTC, Plot No. 45-47, MIDC Satpur, Nashik, Maharashtra - 422002"
+        },
+        {
+            "location": "Solapur",
+            "state": "Maharashtra",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "slpr.retrm@hpcl.in",
+            "phone": "7507234588",
+            "address": "Near Pakni Railway Station, Pakni, Solapur, Maharashtra - 413242"
+        },
+        {
+            "location": "Vashi",
+            "state": "Maharashtra",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "vashi.retrm@hpcl.in",
+            "phone": "022-27620231",
+            "address": "D-500, TTC Industrial Area, MIDC Turbhe, Navi Mumbai, Maharashtra - 400703"
+        },
+        {
+            "location": "Bhopal",
+            "state": "Madhya Pradesh",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "bhop.retrm@hpcl.in",
+            "phone": "0755-4274021",
+            "address": "Gautam Nagar P.O. Govindpura, Bhopal, Madhya Pradesh - 462023"
+        },
+        {
+            "location": "Indore",
+            "state": "Madhya Pradesh",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "indo.retrm@hpcl.in",
+            "phone": "0731-2437804",
+            "address": "Ground Floor, Kapas Bhawan, 27A, Race Course Road, Indore, Madhya Pradesh - 452001"
+        },
+        {
+            "location": "Jabalpur",
+            "state": "Madhya Pradesh",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "jaba.retrm@hpcl.in",
+            "phone": "0761-2480402",
+            "address": "74 - 75 Gol Bazar, Shaheed Smarak, Near Gangotri Apartment, Jabalpur, Madhya Pradesh - 482002"
+        },
+        {
+            "location": "Gwalior",
+            "state": "Madhya Pradesh",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "gwal.retrm@hpcl.in",
+            "phone": "0751-4851095",
+            "address": "Office No. 611, 6th Floor, Keshar Tower, Race Course Road, Near Railway Station, Gwalior - 474002"
+        },
+        {
+            "location": "Lucknow",
+            "state": "Uttar Pradesh",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "lucknow.retrm@hpcl.in",
+            "phone": "0522-2309581",
+            "address": "Plot No. 1, Nehru Enclave, Gomti Nagar, Lucknow, Uttar Pradesh - 226010"
+        },
+        {
+            "location": "Kanpur",
+            "state": "Uttar Pradesh",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "kanpur.retrm@hpcl.in",
+            "phone": "0512-2296555",
+            "address": "Ground Floor, 88-A, Gowardhan Purwa, Saket Nagar, Hamirpur Road, Kanpur Nagar, Kanpur, Uttar Pradesh - 208014"
+        },
+        {
+            "location": "Agra",
+            "state": "Uttar Pradesh",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "agra.retrm@hpcl.in",
+            "phone": "0562-203090",
+            "address": "85/4, ISPAT Bhavan, Sanjay Place, Agra, Uttar Pradesh - 282002"
+        },
+        {
+            "location": "Mathura",
+            "state": "Uttar Pradesh",
+            "role": "Retail Regional Manager (Agra RO covers Mathura)",
+            "name": "",
+            "email": "agra.retrm@hpcl.in",
+            "phone": "0562-2523084",
+            "address": "85/4, Ispat Bhawan, 3rd Floor, Sanjay Place, Agra-282002"
+        },
+        {
+            "location": "Varanasi",
+            "state": "Uttar Pradesh",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "varanasi.retrm@hpcl.in",
+            "phone": "0542-2221036",
+            "address": "2nd Floor, North Square Bldg, Shastri Nagar, Sigra, Varanasi, Uttar Pradesh - 221002"
+        },
+        {
+            "location": "Kolkata",
+            "state": "West Bengal",
+            "role": "Regional Manager",
+            "name": "",
+            "email": "kolkata.retrm@hpcl.in",
+            "phone": "+91-9547535867",
+            "address": "2ND FLOOR, No-6, Church Lane, Bbd Bag, Kolkata-700001, West Bengal"
+        },
+        {
+            "location": "Panipat",
+            "state": "Haryana",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "panipat.retrm@hpcl.in",
+            "phone": "0180-2681328",
+            "address": "E-22, Court Road, Industrial Area, Panipat - 132101"
+        },
+        {
+            "location": "Gurugram",
+            "state": "Haryana",
+            "role": "Retail Regional Manager",
+            "name": "",
+            "email": "ggn.retrm@hpcl.in",
+            "phone": "0124-4206001",
+            "address": "1st Floor, Silverton Tower Golf Course Extension Road, Sector-50, Gurugram, Haryana - 122001"
+        },
+        {
+            "location": "Rewari",
+            "state": "Haryana",
+            "role": "Haryana State Office Contact",
+            "name": "",
+            "email": "haryana.retrm@hpcl.in",
+            "phone": "9812923456",
+            "address": "General HPCL Haryana Contact"
+        },
+        {
+            "location": "Mumbai",
+            "state": "Maharashtra",
+            "role": "Lube Regional Manager (Bazaar)",
+            "name": "Bharat Tuli",
+            "email": "mum.lubrm@hpcl.in",
+            "phone": "9594820681",
+            "address": "Junction of S.V. Road & Turner Road, Bandra (W), Mumbai, Pin 400050"
+        },
+        {
+            "location": "Pune",
+            "state": "Maharashtra",
+            "role": "Lube Regional Manager (Consumer)",
+            "name": "Mohammad Akmal",
+            "email": "mohammadakmal@hpcl.in",
+            "phone": "9628553377",
+            "address": "3/C, Dr. Ambedkar Road, Next to Nehru Memorial Hall, Camp, Pune, Maharashtra, Pin 411001"
+        },
+        {
+            "location": "Nagpur",
+            "state": "Maharashtra",
+            "role": "Lube Regional Manager",
+            "name": "Naveen Kumar",
+            "email": "nagp.lubrm@hpcl.in",
+            "phone": "9594820691",
+            "address": "3rd Floor, BSNL Sanchar Laxmi Building, Opposite Kasturchand Park, Nagpur, Maharashtra, Pin 440001"
+        },
+        {
+            "location": "Bhopal",
+            "state": "Madhya Pradesh",
+            "role": "Lube Regional Manager",
+            "name": "Chandrakant Madhukar Shende",
+            "email": "bhop.lubrm@hpcl.in",
+            "phone": "8356843176",
+            "address": "Gautam Nagar, PO Govindpura, Bhopal, Madhya Pradesh, Pin 462023"
+        }
+    ]
+}
